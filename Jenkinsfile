@@ -3,7 +3,7 @@ pipeline {
     stages {
        stage('Build Jar'){
           steps{
-             sh "sudo apt install maven -y"
+             sh "java --version"
              sh "mvn clean package -DskipTests"
           }
        }
