@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+<suite name="flight-reservation-suite" thread-count="2" parallel="tests">
+    <test name="passanger-count-1">
+        <parameter name="noOfPassengers" value="1"/>
+        <parameter name="expectedPrice" value="$584 USD"/>
+        <classes>
+            <class name="tests.flightreservation.FlightReservationTest"/>
+        </classes>
+    </test>
+    <test name="passanger-count-2">
+        <parameter name="noOfPassengers" value="2"/>
+        <parameter name="expectedPrice" value="$1169 USD"/>
+        <classes>
+            <class name="tests.flightreservation.FlightReservationTest"/>
+        </classes>
+    </test>
+</suite>
