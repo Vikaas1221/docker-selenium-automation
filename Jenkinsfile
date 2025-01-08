@@ -5,7 +5,7 @@ pipeline {
           steps{
              sh "apt update"
              sh "apt install sudo"
-             sh "sudo apt install maven -Y"
+             sh "sudo apt install maven -y"
              sh "java --version"
              sh "mvn clean package -DskipTests"
           }
