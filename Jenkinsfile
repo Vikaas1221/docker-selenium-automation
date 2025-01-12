@@ -18,7 +18,7 @@ pipeline {
        }
        stage('Run Test'){
           steps{
-             bat  "docker-compose up"
+             bat  "docker-compose up -d"
              // Check the exit status of the test container
              script {
                  // Wait for the test container to exit and capture its exit code
