@@ -9,7 +9,7 @@ WORKDIR /home/selenium-docker-automation
 # Add the required files
 ADD target/docker-resources .
 # Copying t he runner.sh from the code to the docker container in the WORKDIR
-ADD runner.sh       runner.sh
+#ADD runner.sh       runner.sh
 
 # Environment variables
 # BROWSER
@@ -18,5 +18,5 @@ ADD runner.sh       runner.sh
 #THREAD_COUNT
 
 # Run the tests````
-#ENTRYPOINT java -Dselenium.grid.hubHost=${HUBHOST} -Dselenium.grid.enabled=true -cp "libs/*" org.testng.TestNG test-suites/${TESTSUITE}
-ENTRYPOINT sh runner.sh
+ENTRYPOINT java -Dselenium.grid.hubHost=${HUBHOST} -Dselenium.grid.enabled=true -cp "libs/*" org.testng.TestNG test-suites/${TESTSUITE}
+#ENTRYPOINT sh runner.sh
