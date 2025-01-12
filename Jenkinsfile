@@ -18,7 +18,19 @@ pipeline {
        }
        stage('Run Test'){
           steps{
-             bat  "docker-compose up -d"
+             bat  "docker-compose up"
+             // Check the exit status of the test container
+             script {
+                 // Wait for the test container to exit and capture its exit code
+                 def exitCode = sh(script: "docker wait selenium-testrun-svc", returnStatus: true)
+
+                 // Check if the exit code is non-zero (failure) or zero (success)
+                 if (exitCode != 0) {
+                     error "Tests failed with exit code: ${exitCode}"
+                 } else {
+                     echo "Tests completed successfully with exit code: ${exitCode}"
+                 }
+             }
           }
        }
     }
