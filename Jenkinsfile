@@ -22,4 +22,11 @@ pipeline {
           }
        }
     }
+	post {
+	   always{ // Values can be-> always,success, failure ( Based on the execution result of Stages, the post step will execute)
+	     echo "Finished all stages execution"
+	     bat "docker-compose down"
+	   }
+
+	}
 }
