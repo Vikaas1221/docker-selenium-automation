@@ -19,13 +19,11 @@ public class Config
         // Check if user passed any properties using command line, then override that property
         for (String key:properties.stringPropertyNames())
         {
-            log.info("key");
-            log.info("Is contains in command line: {}",System.getProperties().contains(key));
-            if(System.getProperties().contains(key))
+            if(System.getProperties().containsKey(key) && !System.getProperty(key).equalsIgnoreCase(properties.getProperty(key)))
             {
-                log.info("contains in command line: {}",System.getProperties().contains(key));
+                log.info("Agrument {} passed from command line: {}",key,System.getProperty(key));
+                log.info("Default Agrument {} defined in code: {}",key,properties.getProperty(key));
                 properties.setProperty(key,System.getProperty(key));
-                log.info("Properties {}",properties.getProperty(key));
             }
         }
 

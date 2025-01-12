@@ -1,0 +1,41 @@
+version: "3"
+services:
+  hub-svc:
+    image: selenium/hub:4.20
+    ports:
+      - 4444:4444
+  chrome-node-svc:
+    image: selenium/node-chrome:4.20
+    shm_size: '2g'
+    depends_on:
+      - hub-svc
+    deploy:
+      replicas: 3  # This will create 3 chrome nodes
+    environment:
+      - SE_EVENT_BUS_HOST=hub-svc
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=4   # This is to run the 4 tests in one chrome node 1 replicas = 4 chrome
+  firefox-node-svc:
+    image: selenium/node-firefox:4.20
+    shm_size: '2g'
+    depends_on:
+      - hub-svc
+      - chrome-node-svc
+    deploy:
+      replicas: 0  #This will not create any node
+    environment:
+      - SE_EVENT_BUS_HOST=hub-svc
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  selenium-testrun-svc:
+    image: jangravikas121/dockerrizeselenium
+    depends_on:
+      - hub-svc   # Here we are connecting the selenium test to hub
+      - chrome-node-svc
+    environment:
+      - HUBHOST=hub-svc
+      - TESTSUITE=flight-reservation.xml
+    volumes:
+      - ./output/flight-reservation:/home/selenium-docker-automation/test-output

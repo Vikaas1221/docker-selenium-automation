@@ -20,6 +20,8 @@
         <maven.surefire.version>3.1.2</maven.surefire.version>
         <maven.resources.plugin>3.3.1</maven.resources.plugin>
         <package.directory>${project.build.directory}/docker-resources</package.directory>
+        <browser>chrome</browser>
+        <selenium.grid.enabled>false</selenium.grid.enabled>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -74,8 +76,8 @@
                 <version>${maven.surefire.version}</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <browser>chrome</browser>
-                        <selenium.grid.enabled>true</selenium.grid.enabled>
+                        <browser>${browser}</browser>
+                        <selenium.grid.enabled>${selenium.grid.enabled}</selenium.grid.enabled>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <file>src/test/resources/test-suites/flight-reservation.xml</file>
@@ -117,6 +119,9 @@
                         <goals>
                             <goal>test-jar</goal>
                         </goals>
+                        <configuration>
+                            <includes>**/*.class</includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

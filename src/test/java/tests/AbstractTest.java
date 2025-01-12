@@ -33,7 +33,6 @@ public abstract class AbstractTest
     @BeforeTest
     public void setDriver() throws MalformedURLException {
         log.info("Grid enabled value from config: {}",Config.get(Constants.GRID_ENABLED));
-        log.info("Is Grid enabled? {}",Boolean.getBoolean(Config.get(Constants.GRID_ENABLED)));
         if(Boolean.parseBoolean(Config.get(Constants.GRID_ENABLED)))
         {
             log.info("In remote driver");
